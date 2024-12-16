@@ -1,11 +1,13 @@
-import React from 'react'
+import { Link } from 'react-router-dom';
 
 const Login = () => {
   return (
     <>
         <div>
-            <h1 className='text-indigo-600 font-black text-6xl'>Login para Administrar tus Pacientes</h1>
-
+            <h1 className='text-gray-600 font-black text-6xl'>
+                Login para Administra t<span className='text-fuchsia-950'>u</span>s 
+                P<span className='text-fuchsia-950'>a</span>c<span className='text-fuchsia-950'>i</span>entes
+            </h1>
         </div>
         <div>
             <form>
@@ -32,10 +34,15 @@ const Login = () => {
                 <input 
                     type="submit"
                     value="Iniciar Sesion"
-                    className="bg-indigo-700 w-full py-3 px-10 rounded-xl text-white uppercase
-                    font-bold mt-5 hover:cursor-pointer hover:bg-indigo-800 md:w-auto"
+                    className="bg-fuchsia-950 w-full py-3 px-10 rounded-xl text-white uppercase
+                    font-bold mt-5 hover:cursor-pointer hover:bg-fuchsia-900 md:w-auto"
                 />
             </form>
+            {/* flex alinea los elemento uno al lado del otro*/}
+            <nav className="flex space-x-4 mt-3">
+                <Link to="/registrar" class="text-blue-500 hover:underline"> Registrate</Link>
+                <Link to="/olvide-password" class="text-blue-500 hover:underline"> Olvide mi Password</Link>
+            </nav>
         </div>
     </>
   )
