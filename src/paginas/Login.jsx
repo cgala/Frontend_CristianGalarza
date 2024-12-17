@@ -40,8 +40,8 @@ const Login = () => {
             </form>
             {/* flex alinea los elemento uno al lado del otro*/}
             <nav className="flex space-x-4 mt-3">
-                <Link to="/registrar" class="text-blue-500 hover:underline"> Registrate</Link>
-                <Link to="/olvide-password" class="text-blue-500 hover:underline"> Olvide mi Password</Link>
+                <Link to="/registrar" className="text-blue-500 hover:underline"> Registrate</Link>
+                <Link to="/olvide-password" className="text-blue-500 hover:underline"> Olvide mi Password</Link>
             </nav>
         </div>
     </>

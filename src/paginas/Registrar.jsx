@@ -1,6 +1,44 @@
+import {useState} from 'react'
 import { Link } from "react-router-dom";
+import axios from 'axios';
+import Alerta from '../components/Alerta';
+
 
 const Registrar = () => {
+    const [nombre, setNombre] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPasswod] = useState('');
+    const [repetirPasword, setRepetirPasword] = useState('');
+    const [alerta, setAlerta] = useState({});
+
+    const handleSubmit = async e => {
+        e.preventDefault();
+        if([nombre, email, password, repetirPasword].includes('')){
+            setAlerta({msg: 'Hay campos vacios', error:true})
+            return;
+        }
+        if (password !== repetirPasword){
+            setAlerta({msg: 'Los passwords no son iguales', error:true})
+            return;
+        }
+
+        if(password.length < 6){
+            setAlerta({msg: 'El largo de la contraseña tiene que ser mayor a 6 caracteres', error:true})
+            return;
+        }
+
+        setAlerta({});
+
+        try{
+            const respuesta = await axios.post()
+
+        } catch (error){
+            console.log(error);
+        }
+
+    }
+
+
     return (
       <>
          <div>
@@ -10,7 +48,8 @@ const Registrar = () => {
             </h1>
         </div>
         <div>
-            <form>
+            <Alerta alerta={alerta}/>
+            <form onSubmit={handleSubmit}>
                 <div className="my-5">
                     <label className='uppercase text-gray-600 block text-xl font-bold'>
                         Nombre
@@ -19,6 +58,8 @@ const Registrar = () => {
                         type="text"
                         placeholder="Tu nombre"
                         className="border w-full p-3 bg-gray-50 rounded-xl"
+                        value={nombre}
+                        onChange={e => setNombre(e.target.value)}
                     />
                 </div>
 
@@ -30,6 +71,8 @@ const Registrar = () => {
                         type="text"
                         placeholder="Email de Registro"
                         className="border w-full p-3 bg-gray-50 rounded-xl"
+                        value={email}
+                        onChange={e => setEmail(e.target.value)}
                     />
                 </div>
 
@@ -41,6 +84,8 @@ const Registrar = () => {
                         type="password"
                         placeholder="Tu password"
                         className="border w-full p-3 bg-gray-50 rounded-xl"
+                        value={password}
+                        onChange={e => setPasswod(e.target.value)}
                     />
                 </div>
 
@@ -52,6 +97,8 @@ const Registrar = () => {
                         type="password"
                         placeholder="Repite tu password"
                         className="border w-full p-3 bg-gray-50 rounded-xl"
+                        value={repetirPasword}
+                        onChange={e => setRepetirPasword(e.target.value)}
                     />
                 </div>
 
@@ -64,8 +111,8 @@ const Registrar = () => {
             </form>
 
             <nav className="flex space-x-4 mt-3">
-                <Link to="/" class="text-blue-500 hover:underline"> Ya tienen una cuenta?</Link>
-                <Link to="/olvide-password" class="text-blue-500 hover:underline"> Olvide mi Password</Link>
+                <Link to="/" className="text-blue-500 hover:underline"> Ya tienen una cuenta?</Link>
+                <Link to="/olvide-password" className="text-blue-500 hover:underline"> Olvide mi Password</Link>
             </nav>
         </div>
         

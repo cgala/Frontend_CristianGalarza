@@ -33,7 +33,7 @@ const OlvidePassword = () => {
             </form>
 
             <nav className="flex space-x-4 mt-3">
-                <Link to="/" class="text-blue-500 hover:underline"> Ya tienen una cuenta?</Link>
+                <Link to="/" className="text-blue-500 hover:underline"> Ya tienen una cuenta?</Link>
             </nav>
         </div>   
 
