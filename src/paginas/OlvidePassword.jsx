@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import Alerta from '../components/Alerta';
+import clienteAxios from "../config/axios";
 
 const OlvidePassword = () => {
     const[email, setEmail] = useState('');
@@ -15,9 +16,10 @@ const OlvidePassword = () => {
         }
 
         try {
-            const url = `${import.meta.env.VITE_BACKEND_URL}/api/veterinarios/olvide-password`
-            await axios.post(url, { email })
-    
+            const { data } = await clienteAxios.post('/veterinarios/olvide-password', { email });
+            console.log(data);
+
+            setAlerta({msg: data.msg});
 
         } catch(error){
             setAlerta({
@@ -46,6 +48,7 @@ const OlvidePassword = () => {
         <div>
             <Alerta alerta={alerta}/>
             <form onSubmit={handleSubmit}>
+
                 <div className="my-5">
                     <label className='uppercase text-gray-600 block text-xl font-bold'>
                         Email
