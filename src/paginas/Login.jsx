@@ -44,7 +44,7 @@ const Login = () => {
     <>
         <div>
             <h1 className='text-gray-600 font-black text-6xl'>
-                Login para Administra t<span className='text-fuchsia-950'>u</span>s 
+                Login para Administrar t<span className='text-fuchsia-950'>u</span>s 
                 P<span className='text-fuchsia-950'>a</span>c<span className='text-fuchsia-950'>i</span>entes
             </h1>
         </div>
