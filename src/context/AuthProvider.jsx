@@ -39,12 +39,18 @@ const AuthPrivider = ({children}) => {
         authenticarUsuario()   
     }, [])
 
+    const cerrarSesion = () => {
+        localStorage.removeItem('token')
+        setAuth({})
+    }
+
     return(
         <AuthContext.Provider
             value={{
                 auth,
                 setAuth,
-                cargando
+                cargando,
+                cerrarSesion
             }}
         
         
