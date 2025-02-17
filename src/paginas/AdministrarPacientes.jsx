@@ -1,6 +1,17 @@
+import Formulario from "../components/Formulario"
+import ListadoPacientes from "../components/ListadoPacientes"
 
-export const AdministrarPacientes = () => {
+const AdministrarPacientes = () => {
   return (
-    <h1>Desde administrar pacientes</h1>
+    <div className="flex flex-col md:flex-row">
+      <div className="md:w-1/2">
+        <Formulario/>
+      </div>
+      <div className="md:w-1/2">
+        <ListadoPacientes/>
+      </div>
+    </div>
   )
 }
+
+export default AdministrarPacientes
