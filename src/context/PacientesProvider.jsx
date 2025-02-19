@@ -42,7 +42,8 @@ export const PacientesProvider = ({children}) =>{
                 Authorization: `Bearer ${token}`
             }
         }
-
+        /*si el paciente tiene un id implica que existe en la base, entonces se actualiza con el put
+        si no tiene id, es un paciente nuevo*/
         if(paciente.id) {
             try {
                 const { data } = await clienteAxios.put(`/pacientes/${paciente.id}`, paciente, config)
@@ -53,6 +54,7 @@ export const PacientesProvider = ({children}) =>{
                 console.log(error)
             }
         } else {
+            /*como no existe lo crea con post y obtengo los datos del paciente creado en data */
             try {
                 const { data } = await clienteAxios.post('/pacientes', paciente, config)
                 const { createdAt, updatedAt, __v, ...pacienteAlmacenado } = data
@@ -62,12 +64,23 @@ export const PacientesProvider = ({children}) =>{
             }
         }
     }
+    {/* recibe el paciente al apretar el boton editar y setea el hook que espera un solo objeto*/}
+    const setEdicion = (paciente) => {
+        setPaciente(paciente)
+    }
+
+    const eliminarPaciente = (id) => {
+        console.log(id)
+    }
 
     return(
         <PacientesContext.Provider
             value={{
                 pacientes,
-                guardarPaciente
+                guardarPaciente,
+                setEdicion,
+                paciente,
+                eliminarPaciente
                 
             }}
         

@@ -1,6 +1,8 @@
-
+import usePacientes from "../hooks/usePacientes"
 
 const Paciente = ({paciente}) => {
+
+  const { setEdicion, eliminarPaciente } = usePacientes()
 
   const { email, fecha, nombre, propietario, sintomas, _id } = paciente
 
@@ -32,6 +34,8 @@ const Paciente = ({paciente}) => {
           type="button"
           className=" bg-green-800 w-1/2 py-1 px-10 rounded-xl text-white uppercase
                     font-bold mt-5 hover:cursor-pointer hover:bg-green-700"
+          /* recibe el paciente al apretar el boton editar y setea el hook que espera un solo objeto*/
+          onClick={() => setEdicion(paciente)}
         >Editar
         </button>
 
@@ -39,6 +43,7 @@ const Paciente = ({paciente}) => {
           type="button"
           className=" bg-red-800 w-1/2 py-1 px-10 rounded-xl text-white uppercase
                     font-bold mt-5 hover:cursor-pointer hover:bg-red-700"
+          onClick={() => eliminarPaciente(_id)}
         >Eliminar
         </button>
       </div>
