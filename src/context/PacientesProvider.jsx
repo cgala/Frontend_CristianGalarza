@@ -1,31 +1,65 @@
 import { createContext, useState, useEffect } from "react";
 import clienteAxios from "../config/axios";
 
+
 const PacientesContext = createContext()
 
 export const PacientesProvider = ({children}) =>{
 
     const [pacientes, setPacientes] = useState([])
+    const [paciente, setPaciente] = useState({})
 
-    const guardarPaciente = async (paciente) => {
-        try {
-            const token = localStorage.getItem('token')
-            const config = {
-                headers:{
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${token}`,
+    useEffect(( )=> {
+        const obtenerPacientes = async () => {
+
+            try {
+                const token = localStorage.getItem('token')
+                if(!token) return
+
+                const config = {
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`
+                    }
                 }
-            }
 
-            const { data }= await clienteAxios.post('/pacientes',paciente, config)
-            
-            {/*creo un nuevo objeto omitiendo createdAt, updatedAt, __V */}
-            const { createdAt, updatedAt, __V, ...pacienteAlmacenado} = data
-            
-            {/* agrego el paciente almacenado y una copia de pacientes*/}
-            setPacientes([pacienteAlmacenado, ...pacientes])
-        } catch (error) {
-            console.log(error.response.data.msg)
+                const { data } = await clienteAxios('/pacientes', config)
+                setPacientes(data)
+                
+            } catch (error) {
+                console.log(error)
+            }
+        }
+        obtenerPacientes()
+    }, [])
+    
+    const guardarPaciente = async (paciente) => {
+
+        const token = localStorage.getItem('token')
+        const config = {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`
+            }
+        }
+
+        if(paciente.id) {
+            try {
+                const { data } = await clienteAxios.put(`/pacientes/${paciente.id}`, paciente, config)
+
+                const pacientesActualizado = pacientes.map( pacienteState => pacienteState._id === data._id ? data : pacienteState )
+                setPacientes(pacientesActualizado)
+            } catch (error) {
+                console.log(error)
+            }
+        } else {
+            try {
+                const { data } = await clienteAxios.post('/pacientes', paciente, config)
+                const { createdAt, updatedAt, __v, ...pacienteAlmacenado } = data
+                setPacientes([pacienteAlmacenado, ...pacientes])
+            } catch (error) {
+                console.log(error.response.data.msg)
+            }
         }
     }
 
