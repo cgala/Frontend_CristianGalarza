@@ -1,5 +1,6 @@
 import { createContext, useState, useEffect } from "react";
 import clienteAxios from "../config/axios";
+import useAuth from "../hooks/useAuth";
 
 
 const PacientesContext = createContext()
@@ -8,6 +9,8 @@ export const PacientesProvider = ({children}) =>{
 
     const [pacientes, setPacientes] = useState([])
     const [paciente, setPaciente] = useState({})
+    const { auth } = useAuth();//lo paso como dependencia en el useEffect para que al cambiar de usuario se vuelva
+                                // a ejecutar obtenerPacientes
 
     useEffect(( )=> {
         const obtenerPacientes = async () => {
@@ -31,7 +34,7 @@ export const PacientesProvider = ({children}) =>{
             }
         }
         obtenerPacientes()
-    }, [])
+    }, [auth])
     
     const guardarPaciente = async (paciente) => {
 

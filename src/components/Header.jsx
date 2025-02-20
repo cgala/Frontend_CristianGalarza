@@ -15,9 +15,6 @@ const Header = () => {
                 </span>
             </h1>
             <nav className="flex gap-4">
-                <Link to="/admin" className="text-white text-xl">Pacientes</Link>
-                <Link to="/admin" className="text-white text-xl">Perfil</Link>
-
                 <button
                     type="button"
                     className="text-white text-xl"
