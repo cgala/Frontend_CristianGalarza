@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import useAuth from '../hooks/useAuth';
 import Alerta from '../components/Alerta';
@@ -7,6 +7,8 @@ import clienteAxios from '../config/axios';
 
 const Login = () => {
 
+    const [totalVeterinarios, setTotalVeterinarios] = useState(0);
+
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [alerta, setAlerta] = useState({})
@@ -14,6 +16,21 @@ const Login = () => {
     const { setAuth } = useAuth()
 
     const navigate = useNavigate()
+
+    //useEffect para obtener la cantidad de veterinarios al cargar la página
+    useEffect(() => {
+        const obtenerTotalVeterinarios = async () => {
+            try {
+                const { data } = await clienteAxios.get('/veterinarios/total'); 
+                setTotalVeterinarios(data.total); 
+            } catch (error) {
+                console.error("Error al obtener el total de veterinarios", error);
+            }
+        };
+
+        obtenerTotalVeterinarios();
+    }, []);
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -88,6 +105,10 @@ const Login = () => {
                 <Link to="/registrar" className="text-blue-500 hover:underline"> Registrate</Link>
                 <Link to="/olvide-password" className="text-blue-500 hover:underline"> Olvide mi Password</Link>
             </nav>
+        </div>
+
+        <div className="mt-5 text-gray-700 font-semibold">
+            <p>Total de veterinarios registrados: <span className="text-fuchsia-950 font-bold">{totalVeterinarios}</span></p>
         </div>
     </>
   )
